@@ -1,9 +1,9 @@
-
 #coding=utf-8
-from email.mime.text import MIMEText#专门发送正文
-from email.mime.multipart import MIMEMultipart#发送多个部分
-from email.mime.application import MIMEApplication#发送附件
-import smtplib#发送邮件
+
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+import smtplib
 import os
 import time
 import csv
@@ -11,13 +11,12 @@ import csv
 
 
 os.system('masscan -iL ip.txt -p1-65535  -oL masscan.txt --rate=20000')
-#判断当前目录是否有masscan.txt文件,如果没有则等待1秒，再次判断
+
 while True:
     if os.path.exists("masscan.txt"):
         break
     else:
         time.sleep(1)
-#确认massscan.txt文件为否为空，如果为空则print("无开放端口")并退出程序，否则执行下面的代码
 if os.path.getsize("masscan.txt") == 0:
     exit()
 else :
@@ -55,10 +54,7 @@ with open('httpxresult.csv', 'r', encoding='utf-8') as f:
             location = row[10]
             writer.writerow([i, '', url, title, webserver, host, contentlength, statuscode, location,finalurl, '', '', '', '', '', ''])
             i += 1          
-#删除httpxresult.csv文件
 os.remove('httpxresult.csv')
-
-#判断是否存在masscanconvert.txt文件，如果存在就执行下面的代码，否则等待1秒，再次判断
 while True:
     if os.path.exists("masscanconvert.txt"):
         break
